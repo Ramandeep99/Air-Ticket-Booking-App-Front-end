@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const AddFlight = () => {
 
@@ -24,7 +24,7 @@ const AddFlight = () => {
 
                 return {
                     ...preValue,
-                    [name]: true
+                    [name]: 1
                 }
             })
         }
@@ -73,7 +73,7 @@ const AddFlight = () => {
             setState({
                 FlightNo: '', From: '', To: '', Date_: '', Time: '', Fare: '', mon: false, tue: false, wed: false, thur: false, fri: false, sat: false, sun: false
             })
-        
+
             console.log(FlightNo, From, To, Date_ , Time, Fare, mon, tue, wed, thur, fri, sat, sun)
 
             const res = await fetch('/admin/addflight', {
@@ -85,7 +85,6 @@ const AddFlight = () => {
                     FlightNo, From, To, Date_, Time, Fare
                 })
             })
-
 
             const data = await res.json();
 
@@ -101,8 +100,6 @@ const AddFlight = () => {
 
         }
     }
-
-
     return (
         <>
 

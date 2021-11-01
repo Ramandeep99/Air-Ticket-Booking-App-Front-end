@@ -48,7 +48,7 @@ const Home = () => {
 
     useEffect(() => {
         callHomePage()
-    })
+    },[])
 
     
     return (

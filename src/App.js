@@ -11,7 +11,11 @@ import Logout from "./Components/Admin/Logout";
 
 import ShowFlight from "./Components/Admin/FlightSchedule/ShowFlight";
 import AddFlight from "./Components/Admin/FlightSchedule/AddFlight";
+import EditFlight from "./Components/Admin/FlightSchedule/EditFlight";
+import DeleteFlight from "./Components/Admin/FlightSchedule/DeleteFlight";
 
+// icons
+import Like from "./Components/Icons/Edit";
 
 const Routing = () => {
 
@@ -23,6 +27,8 @@ const Routing = () => {
                 <Route exact path='/logout' component={Logout} />
                 <Route exact path='/showflight' component={ShowFlight} />
                 <Route exact path='/addflight' component={AddFlight} />
+                <Route exact path='/editflight' component={EditFlight} />
+                <Route exact path='/deleteflight' component={DeleteFlight} />
                 <Route exact path='/register' component={Register} />
                 <Route exact path='/login' component={Login} />
                 <Route component={Error} />

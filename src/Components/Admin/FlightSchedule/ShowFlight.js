@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./FlightSchedule.css"
 import { Link } from "react-router-dom";
+import Like from "../../Icons/Edit";
+import Delete from "../../Icons/Delete";
 
 const Clock = () => {
 
@@ -17,7 +19,7 @@ const Clock = () => {
         setCount(currentDateTime);
     }
 
-    setInterval(IncVal , 1000);
+    setInterval(IncVal, 1000);
 
     return (
         <>
@@ -27,6 +29,23 @@ const Clock = () => {
         </>
     )
 }
+
+
+const EditFlight = (props) => {
+
+    return (
+        <>
+            <div className='text-center'>
+                <Link className=" btn btn-primary btn-sm" to='/editflight' > <Like /> </Link>
+                <Link className=" btn btn-danger btn-sm ms-2" to='/deleteflight'> <Delete /> </Link>
+            </div>
+        </>
+    )
+}
+
+
+
+
 
 const ShowFlight = () => {
 
@@ -43,7 +62,7 @@ const ShowFlight = () => {
 
     useEffect(() => {
         submit()
-    })
+    }, [])
 
 
     return (
@@ -60,6 +79,7 @@ const ShowFlight = () => {
                             <th scope="col">DATE</th>
                             <th scope="col">TIME</th>
                             <th scope="col">FARE</th>
+                            <th scope="col"> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,6 +91,8 @@ const ShowFlight = () => {
                                 <td>{flight.Date_}</td>
                                 <td>{flight.Time}</td>
                                 <td>{flight.Fare}</td>
+                                
+                                <td> <EditFlight flightId = {flight._id} /> </td>
                             </tr>
                         ))}
 
