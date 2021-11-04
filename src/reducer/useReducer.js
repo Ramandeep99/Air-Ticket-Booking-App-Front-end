@@ -1,5 +1,5 @@
 
-import { useReducer , useState } from "react";
+import { useState } from "react";
 
 
 export const GlobalState = () =>{
@@ -7,3 +7,4 @@ export const GlobalState = () =>{
 
     return {globalState, globalSetState};
 } 
+

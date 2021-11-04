@@ -1,7 +1,7 @@
 
 import React, { useContext, useState } from 'react';
 import { useHistory ,NavLink } from 'react-router-dom';
-import './css/register.css'
+import '../Admin/css/register.css'
 
 import { Context } from '../../reducer/context';
 
@@ -37,21 +37,22 @@ const Login = () => {
 
         if (email === '') {
             emailPass = false;
-            window.alert('Please Enter Emailid')
+            window.alert('Please Enter Emailid');
         }
         if (password === '' && email) {
             passwordPass = false;
-            window.alert('Please Enter Password')
+            window.alert('Please Enter Password');
         }
 
 
         if (emailPass && passwordPass) {
             setState({
                 email: '', password: ''
-            })
+            });
 
 
-            const res = await fetch('/admin/login', {
+
+            const res = await fetch('/user/login', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -59,22 +60,29 @@ const Login = () => {
                 body: JSON.stringify({
                     email, password
                 })
-            })
+            });
 
 
             const data = await res.json();
 
-            console.log(data)
-            console.log(res.status)
+            console.log(data.msg);
+            console.log(res.status);
 
             if (res.status === 400) {
-                window.alert('Invalid Data!')
+                window.alert('Invalid Data!');
+            }
+            else if(data.msg === 'ADMIN'){
+                localStorage.setItem('admin' , true);
+                globalSetState(localStorage.getItem('admin'));
+                window.alert('Successful Admin Logged In');
+                history.push("/");
             }
             else {
-                localStorage.setItem('login' , true);
-                globalSetState(localStorage.getItem('login'))
-                window.alert('Successful Logged In')
-                history.push("/")
+                
+                localStorage.setItem('login', true);
+                globalSetState(localStorage.getItem('login'));
+                window.alert('Successful Logged In');
+                history.push("/userHome");
             }
 
         }

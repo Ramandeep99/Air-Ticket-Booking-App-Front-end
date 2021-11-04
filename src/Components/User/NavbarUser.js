@@ -9,33 +9,16 @@ const Navbar = () => {
 
     const {globalState, globalSetState} = useContext(Context);
 
-    const admin = localStorage.getItem('admin')
+    const status = localStorage.getItem('login')
 
-    const user = localStorage.getItem('login')
-    
+    // console.log(status)
 
     const Menu = () => {
-        if (admin === "true" ) {
+        if (status === "true" ) {
             return (
                 <>
                     <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to='/'>Home</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link active" to='/showflight'  > Show Flights </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link active" to='/logout'  >Logout </Link>
-                    </li>
-                    
-                </>
-            )
-        }
-        else if(user === 'true'){
-            return (
-                <>
-                    <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to='/userHome'>Home</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link active" to='/showflight'  > Show Flights </Link>

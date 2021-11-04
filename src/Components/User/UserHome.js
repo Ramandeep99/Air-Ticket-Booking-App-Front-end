@@ -36,7 +36,7 @@ const Home = () => {
     const [users, setUser] = useState([]);
 
     const callHomePage = async () => {
-        const res = await fetch("/admin/")
+        const res = await fetch("/user/")
         if(res.status === 400){
             history.push('/loginUser')
         }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./FlightSchedule.css"
+import './css/FlightSchedule.css'
 import { Link } from "react-router-dom";
-import Like from "../../Icons/Edit";
-import Delete from "../../Icons/Delete";
+import Like from './Icons/Edit.js'
+import Delete from "./Icons/Delete";
 
 const Clock = () => {
 
@@ -31,23 +31,7 @@ const Clock = () => {
 }
 
 
-const EditFlight = (props) => {
-
-    return (
-        <>
-            <div className='text-center'>
-                <Link className=" btn btn-primary btn-sm" to='/editflight' > <Like /> </Link>
-                <Link className=" btn btn-danger btn-sm ms-2" to='/deleteflight'> <Delete /> </Link>
-            </div>
-        </>
-    )
-}
-
-
-
-
-
-const ShowFlight = () => {
+const ShowFlight = ({ setselectFlight }) => {
 
     const [state, setstate] = useState([])
 
@@ -56,56 +40,110 @@ const ShowFlight = () => {
         const res = await fetch('/admin/getflight')
 
         const data = await res.json()
-        setstate(data);
 
+        setstate(data);
     }
 
     useEffect(() => {
         submit()
     }, [])
 
+    const onHandle = (mode) => {
+        console.log(mode)
+        setselectFlight(mode)
+    }
 
-    return (
-        <>
-            <div className="container">
-                {/* <div className='text-center m-5'> <Clock /> </div> */}
-                <h2 className='text-center m-5'> Flight Schedule </h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">FLIGHT</th>
-                            <th scope="col">FROM</th>
-                            <th scope="col">TO</th>
-                            <th scope="col">DATE</th>
-                            <th scope="col">TIME</th>
-                            <th scope="col">FARE</th>
-                            <th scope="col"> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {state.map((flight, index) => (
-                            <tr data-index={index}>
-                                <td>{flight.FlightNo}</td>
-                                <td>{flight.From}</td>
-                                <td>{flight.To}</td>
-                                <td>{flight.Date_}</td>
-                                <td>{flight.Time}</td>
-                                <td>{flight.Fare}</td>
-                                
-                                <td> <EditFlight flightId = {flight._id} /> </td>
+    const admin = localStorage.getItem('admin')
+    if (admin === 'true') {
+        return (
+            <>
+                <div className="container">
+                    {/* <div className='text-center m-5'> <Clock /> </div> */}
+                    <h2 className='text-center m-5'> Flight Schedule </h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">FLIGHT</th>
+                                <th scope="col">FROM</th>
+                                <th scope="col">TO</th>
+                                <th scope="col">DATE</th>
+                                <th scope="col">TIME</th>
+                                <th scope="col">FARE</th>
+
+                                <th scope="col"> </th>
                             </tr>
-                        ))}
+                        </thead>
+                        <tbody>
+                            {state.map((flight, index) => (
+                                <tr data-index={index}>
+                                    <td>{flight.FlightNo}</td>
+                                    <td>{flight.From}</td>
+                                    <td>{flight.To}</td>
+                                    <td>{flight.Date_}</td>
+                                    <td>{flight.Time}</td>
+                                    <td>{flight.Fare}</td>
 
-                    </tbody>
-                </table>
+                                    <td>
+                                        <div className='text-center'>
+                                            <Link onClick={() => onHandle(flight._id)} className=" btn btn-primary btn-sm" to='/editflight'  > <Like /> </Link>
+                                            <Link onClick={() => onHandle(flight._id)} className=" btn btn-danger btn-sm ms-2" to='/deleteflight'> <Delete /> </Link>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
 
-                <div className='text-center mt-4'>
-                    <Link className=" btn btn-primary" to='/addflight'>Add Flight </Link>
+                        </tbody>
+                    </table>
+
+                    <div className='text-center mt-4'>
+                        <Link className=" btn btn-primary" to='/addflight'>Add Flight </Link>
+                    </div>
                 </div>
-            </div>
 
-        </>
-    )
+            </>
+        )
+    }
+    else {
+        return (
+            <>
+
+                <div className="container">
+                    {/* <div className='text-center m-5'> <Clock /> </div> */}
+                    <h2 className='text-center m-5'> Flight Schedule </h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">FLIGHT</th>
+                                <th scope="col">FROM</th>
+                                <th scope="col">TO</th>
+                                <th scope="col">DATE</th>
+                                <th scope="col">TIME</th>
+                                <th scope="col">FARE</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {state.map((flight, index) => (
+                                <tr data-index={index}>
+                                    <td>{flight.FlightNo}</td>
+                                    <td>{flight.From}</td>
+                                    <td>{flight.To}</td>
+                                    <td>{flight.Date_}</td>
+                                    <td>{flight.Time}</td>
+                                    <td>{flight.Fare}</td>
+
+                                </tr>
+                            ))}
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </>
+        )
+    }
 }
 
 export default ShowFlight;
