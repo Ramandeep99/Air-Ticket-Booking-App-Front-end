@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
+import SearchFlight from "./SearchFlight";
+import ShowSearchedFlight from "./ShowSearchedFlight";
 // arvinder singh
 
 const Clock = () => {
@@ -14,16 +16,16 @@ const Clock = () => {
         var currentdate = new Date();
         var currentDateTime = currentdate.toLocaleTimeString();
         setCount(currentDateTime);
-        // console.log('clicked')
     }
 
-    setInterval(IncVal , 1000);
+    setInterval(IncVal, 1000);
 
     return (
         <>
             <div className='mainDiv'>
                 <h1> {count} </h1>
             </div>
+
         </>
     )
 }
@@ -33,32 +35,58 @@ const Home = () => {
 
     const history = useHistory();
 
-    const [users, setUser] = useState([]);
+    const [flights, setflights] = useState([])
 
-    const callHomePage = async () => {
-        const res = await fetch("/user/")
-        if(res.status === 400){
-            history.push('/loginUser')
-        }
-        else {
-            const data = await res.json()
-            setUser(data.userList)
+    function withProps(Component, props) {
+        return function (matchProps) {
+            return <Component {...props} {...matchProps} />
         }
     }
 
     useEffect(() => {
-        callHomePage()
-    },[])
+        console.log('user Home page')
+        console.log(flights)
+    }, [])
 
+    const back = () => {
+        setflights([])
+    }
+
+
+    const Display = () => {
+        if (flights.length === 0) {
+            return (
+                <>
+                    <div className='text-center'>
+                        <SearchFlight setflights={setflights} />
+                    </div>
+                </>
+            )
+        }
+        else {
+            return (
+                <>
+                    <ShowSearchedFlight flights={flights} />
+
+                    <div className='text-center'>
+                        <div className="form-group mt-4">
+                            <button className="btn btn-primary btn-block" type="submit" onClick={back}
+                                id="submit-btn">Go Back</button>
+                        </div>
+                    </div>
+                </>
+            )
+        }
+    }
 
     return (
         <>
-            <h1 className='text-center m-5'> Home Page </h1> 
-            <div className='text-center m-5'> <Clock /> </div>
-            <div className="text-center">
 
-                {users.map(user => <li style={{listStyleType:"none"}}> {user} </li>)}
-            
+            <div className="container">
+                <div className='text-center mt-3'> <Clock /> </div>
+
+                <Display />
+
             </div>
 
         </>
@@ -66,62 +94,3 @@ const Home = () => {
 }
 
 export default Home;
-
-
-
-
-
-
-// const Home = () =>{
-
-//     const history = useHistory();
-
-//     const callHomePage = async (e) => {
-
-//         // try{
-//             const res = await fetch("//localhost:2000/" ,{
-//                 method:"GET",
-//                 headers:{
-//                     "Content-Type" : "application/json",
-//                     Accept : "application/json"
-//                 },
-//                 credentials: "include"
-//             });
-
-
-//             const data = await res;
-
-//             console.log(data)
-
-//             // if(!data.status === 200){
-//             //     const error = new Error(res.error);
-//             //     throw error;
-//             // }
-//             // else{
-//             //     history
-//             // }
-
-//         // }
-//         // catch(error){
-//         //     console.log(error)
-//         //     history.push('/login')
-//         // }
-
-//     }
-
-
-//     useEffect(() => {
-//         callHomePage();
-//     }, [])
-
-//     return (
-//         <>
-
-
-//         <h1> Home Page </h1>
-
-//         </>
-//     )
-// }
-
-// export default Home;

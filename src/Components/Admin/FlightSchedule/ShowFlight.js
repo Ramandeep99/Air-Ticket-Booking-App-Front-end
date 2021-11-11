@@ -1,37 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext } from "react";
 import './css/FlightSchedule.css'
 import { Link } from "react-router-dom";
 import Like from './Icons/Edit.js'
 import Delete from "./Icons/Delete";
 
-const Clock = () => {
-
-    var currentdate = new Date();
-    var datetime = currentdate.toLocaleTimeString()
-
-    const [count, setCount] = useState(datetime);
-
-    const IncVal = () => {
-
-        var currentdate = new Date();
-        var currentDateTime = currentdate.toLocaleTimeString();
-        // console.log(currentDateTime)
-        setCount(currentDateTime);
-    }
-
-    setInterval(IncVal, 1000);
-
-    return (
-        <>
-            <div className='mainDiv'>
-                <h1> {count} </h1>
-            </div>
-        </>
-    )
-}
-
+// from user 
+import { Context } from "../../../GlobalFlightState/FlightContext";
 
 const ShowFlight = ({ setselectFlight }) => {
+
+    const {globalState , globalSetState} = useContext(Context);
 
     const [state, setstate] = useState([])
 
@@ -51,6 +29,11 @@ const ShowFlight = ({ setselectFlight }) => {
     const onHandle = (mode) => {
         console.log(mode)
         setselectFlight(mode)
+    }
+
+    const UseronHandle = (mode) => {
+        // console.log(mode)
+        globalSetState(mode)
     }
 
     const admin = localStorage.getItem('admin')
@@ -132,6 +115,11 @@ const ShowFlight = ({ setselectFlight }) => {
                                     <td>{flight.Time}</td>
                                     <td>{flight.Fare}</td>
 
+                                    <td>
+                                        <div className='text-center'>
+                                            <Link onClick={() => UseronHandle(flight._id)} className=" btn btn-primary btn-sm" to='/bookticket'  > <Like /> </Link>
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
 
