@@ -39,10 +39,10 @@ const BookingHistory = ({ props }) => {
 
 
     const showPrevBooking = () => {
-        setpresent("false") 
+        setpresent("false")
     }
 
-    const showUpcomingBooking = () =>{
+    const showUpcomingBooking = () => {
         setpresent("true")
     }
 
@@ -60,7 +60,8 @@ const BookingHistory = ({ props }) => {
                                 <th scope="col">FROM</th>
                                 <th scope="col">TO</th>
                                 <th scope="col">DATE</th>
-                                <th scope="col">TIME</th>
+                                <th scope="col">TAKEOFF TIME</th>
+                                <th scope="col">DURATION</th>
                                 <th scope="col">FARE</th>
                             </tr>
                         </thead>
@@ -71,7 +72,8 @@ const BookingHistory = ({ props }) => {
                                     <td>{flight.From}</td>
                                     <td>{flight.To}</td>
                                     <td>{flight.Date_}</td>
-                                    <td>{flight.Time}</td>
+                                    <td>{flight.TakeOff_Time}</td>
+                                    <td>{flight.Duration}</td>
                                     <td>{flight.Fare}</td>
 
                                 </tr>
@@ -102,7 +104,8 @@ const BookingHistory = ({ props }) => {
                                 <th scope="col">FROM</th>
                                 <th scope="col">TO</th>
                                 <th scope="col">DATE</th>
-                                <th scope="col">TIME</th>
+                                <th scope="col">TAKEOFF TIME</th>
+                                <th scope="col">DURATION</th>
                                 <th scope="col">FARE</th>
                             </tr>
                         </thead>
@@ -113,7 +116,8 @@ const BookingHistory = ({ props }) => {
                                     <td>{flight.From}</td>
                                     <td>{flight.To}</td>
                                     <td>{flight.Date_}</td>
-                                    <td>{flight.Time}</td>
+                                    <td>{flight.TakeOff_Time}</td>
+                                    <td>{flight.Duration}</td>
                                     <td>{flight.Fare}</td>
 
                                 </tr>

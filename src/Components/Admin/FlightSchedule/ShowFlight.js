@@ -1,6 +1,6 @@
-import React, { useEffect, useState , useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import './css/FlightSchedule.css'
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Like from './Icons/Edit.js'
 import Delete from "./Icons/Delete";
 
@@ -9,7 +9,9 @@ import { Context } from "../../../GlobalFlightState/FlightContext";
 
 const ShowFlight = ({ setselectFlight }) => {
 
-    const {globalState , globalSetState} = useContext(Context);
+    const history = useHistory();
+
+    const { globalState, globalSetState } = useContext(Context);
 
     const [state, setstate] = useState([])
 
@@ -26,9 +28,40 @@ const ShowFlight = ({ setselectFlight }) => {
         submit()
     }, [])
 
-    const onHandle = (mode) => {
+    const onHandle = async (mode) => {
         console.log(mode)
         setselectFlight(mode)
+
+    }
+
+    const onHandleDelete = async (mode) => {
+        // console.log(mode)
+        // setselectFlight(mode)
+        if (window.confirm("Are you sure?")) {
+            window.alert("OK clicked");
+            setselectFlight(mode)
+            history.push('/deleteflight')
+        }
+        else {
+            window.alert("Cancel clicked");
+        }
+
+        // const res = await fetch(`/admin/deleteflight/${mode}`, {
+        //     method: "GET"
+        // })
+
+        // const data = await res.json();
+
+        // console.log(data)
+
+        // if (res.status === 404) {
+        //     window.alert('Invalid Request!')
+        // }
+        // else {
+        //     window.alert('Successful Deleted!')
+        //     // history.push('/showflight');
+        // }
+
     }
 
     const UseronHandle = (mode) => {
@@ -50,7 +83,8 @@ const ShowFlight = ({ setselectFlight }) => {
                                 <th scope="col">FROM</th>
                                 <th scope="col">TO</th>
                                 <th scope="col">DATE</th>
-                                <th scope="col">TIME</th>
+                                <th scope="col">TAKEOFF TIME</th>
+                                <th scope="col"> DURATION </th>
                                 <th scope="col">FARE</th>
 
                                 <th scope="col"> </th>
@@ -63,13 +97,14 @@ const ShowFlight = ({ setselectFlight }) => {
                                     <td>{flight.From}</td>
                                     <td>{flight.To}</td>
                                     <td>{flight.Date_}</td>
-                                    <td>{flight.Time}</td>
+                                    <td>{flight.TakeOff_Time}</td>
+                                    <td>{flight.Duration}</td>
                                     <td>{flight.Fare}</td>
 
                                     <td>
                                         <div className='text-center'>
-                                            <Link onClick={() => onHandle(flight._id)} className=" btn btn-primary btn-sm" to='/editflight'  > <Like /> </Link>
-                                            <Link onClick={() => onHandle(flight._id)} className=" btn btn-danger btn-sm ms-2" to='/deleteflight'> <Delete /> </Link>
+                                            <Link onClick={() => onHandle(flight._id)} className="btn btn-primary btn-sm" to='/editflight'  > <Like /> </Link>
+                                            <button onClick={() => onHandleDelete(flight._id)} className=" btn btn-danger btn-sm ms-2" > <Delete /> </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -100,7 +135,8 @@ const ShowFlight = ({ setselectFlight }) => {
                                 <th scope="col">FROM</th>
                                 <th scope="col">TO</th>
                                 <th scope="col">DATE</th>
-                                <th scope="col">TIME</th>
+                                <th scope="col">TAKEOFF TIME</th>
+                                <th scope="col"> DURATION </th>
                                 <th scope="col">FARE</th>
 
                             </tr>
@@ -112,7 +148,8 @@ const ShowFlight = ({ setselectFlight }) => {
                                     <td>{flight.From}</td>
                                     <td>{flight.To}</td>
                                     <td>{flight.Date_}</td>
-                                    <td>{flight.Time}</td>
+                                    <td>{flight.TakeOff_Time}</td>
+                                    <td>{flight.Duration}</td>
                                     <td>{flight.Fare}</td>
 
                                     <td>

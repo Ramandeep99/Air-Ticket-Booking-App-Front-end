@@ -21,6 +21,10 @@ import userHome from './Components/User/UserHome'
 import RegisterUser from './Components/User/RegisterUser'
 import BookTicket from "./Components/User/BookTicket";
 import UserBookingHistory from './Components/User/UserBookingHistory'
+import Path_StoD from './Components/User/Path_StoD'
+
+// GLOGIN 
+import GLogin from "./Components/GoogleLogin";
 
 const App = () => {
 
@@ -36,6 +40,7 @@ const App = () => {
         <>
             
             <Navbar />
+            {/* <GLogin /> */}
             {/* <Routing  /> */}
 
             <Switch>
@@ -51,9 +56,10 @@ const App = () => {
                 {/* user */}
                 {/* <Route exact path='/registerUser' component={RegisterUser} /> */}
                 <Route exact path='/loginUser' component={LoginUser} />
-                <Route exact path='/userHome' component={userHome } />
+                <Route exact path='/userHome' component={userHome} />
                 <Route exact path='/bookticket' component={BookTicket} /> 
                 <Route exact path='/bookingHistory' component={UserBookingHistory} />
+                <Route exact path='/path' component={Path_StoD} />
                 <Route component={Error} />
             </Switch>
 

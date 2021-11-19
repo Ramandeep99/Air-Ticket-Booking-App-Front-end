@@ -1,13 +1,14 @@
 
 import React, { useContext, useState } from 'react';
-import { useHistory ,NavLink } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import '../Admin/css/register.css'
 
 import { Context } from '../../reducer/context';
+import GLogin from '../GoogleLogin';
 
 const Login = () => {
 
-    const {globalState, globalSetState} = useContext(Context);
+    const { globalState, globalSetState } = useContext(Context);
 
     const history = useHistory();
 
@@ -71,14 +72,14 @@ const Login = () => {
             if (res.status === 400) {
                 window.alert('Invalid Data!');
             }
-            else if(data.msg === 'ADMIN'){
-                localStorage.setItem('admin' , true);
+            else if (data.msg === 'ADMIN') {
+                localStorage.setItem('admin', true);
                 globalSetState(localStorage.getItem('admin'));
                 window.alert('Successful Admin Logged In');
                 history.push("/");
             }
             else {
-                
+
                 localStorage.setItem('login', true);
                 globalSetState(localStorage.getItem('login'));
                 window.alert('Successful Logged In');
@@ -117,10 +118,11 @@ const Login = () => {
                                 </div>
 
                                 <div className="form-group mt-4">
-                                    <button className="btn btn-primary btn-block" type="submit" onClick={submit} 
+                                    <button className="btn btn-primary btn-block mx-3" type="submit" onClick={submit}
                                         id="submit-btn">Submit</button>
+                                    <GLogin />
                                 </div>
-                      
+
                                 <div className="form-group mt-4">
                                     <p>Don't Have an Account. <NavLink to="/register">Register Here</NavLink></p>
                                 </div>

@@ -37,12 +37,6 @@ const Home = () => {
 
     const [flights, setflights] = useState([])
 
-    function withProps(Component, props) {
-        return function (matchProps) {
-            return <Component {...props} {...matchProps} />
-        }
-    }
-
     useEffect(() => {
         console.log('user Home page')
         console.log(flights)
@@ -51,7 +45,6 @@ const Home = () => {
     const back = () => {
         setflights([])
     }
-
 
     const Display = () => {
         if (flights.length === 0) {
@@ -70,7 +63,7 @@ const Home = () => {
 
                     <div className='text-center'>
                         <div className="form-group mt-4">
-                            <button className="btn btn-primary btn-block" type="submit" onClick={back}
+                            <button className="btn btn-primary btn-block" type="button" onClick={back}
                                 id="submit-btn">Go Back</button>
                         </div>
                     </div>
@@ -84,9 +77,7 @@ const Home = () => {
 
             <div className="container">
                 <div className='text-center mt-3'> <Clock /> </div>
-
                 <Display />
-
             </div>
 
         </>

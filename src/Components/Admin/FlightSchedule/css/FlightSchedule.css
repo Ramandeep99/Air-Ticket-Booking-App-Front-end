@@ -14,3 +14,11 @@
     /* height: 100vh; */
     background-size: 100%;
 }
+
+
+.currencyinput {
+    border: 1px inset #ccc;
+}
+.currencyinput input {
+    border: 0;
+}
