@@ -1,62 +1,113 @@
 
-import React, { useContext , useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Context } from "../../reducer/context";
+import { UserContext } from "../../UserGlobalState/UserContext";
+import { useHistory } from "react-router";
 
 
 const Navbar = () => {
 
-    const {globalState, globalSetState} = useContext(Context);
+    const history = useHistory();
+
+    const { globalState2, globalSetState2 } = useContext(UserContext);
+
+    console.log(globalState2)
+
+    const [bookingdata, setbookingdata] = useState({});
+
+    const [username, setuserName] = useState('')
 
     const admin = localStorage.getItem('admin')
 
     const user = localStorage.getItem('login')
-    
+
+    const Id = localStorage.getItem('loginId')
+
+    console.log(Id)
+
+    const userName = async () => {
+        const res = await fetch(`/user/userName/${Id}`)
+
+        const data = await res.json()
+        var name = data.user
+        var letter = name.charAt(0).toUpperCase();
+        letter += name.slice(1, name.length);
+        setuserName(letter)
+        console.log(letter)
+    }
+
+    useEffect(() => {
+        userName()
+        // console.log(username)
+    }, [])
+
+
+    const showBookingHistory = async () => {
+        setbookingdata(globalState2)
+        history.push({
+            pathname: '/bookingHistory',
+            state: { data: bookingdata }
+        });
+
+    }
+
 
     const Menu = () => {
-        if (admin === "true" ) {
+        if (admin === "true") {
             return (
                 <>
                     <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to='/'>Home</Link>
                     </li>
+
                     <li className="nav-item">
                         <Link className="nav-link active" to='/showflight'  > Show Flights </Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link active" to='/logout'  >Logout </Link>
                     </li>
-                    
+
                 </>
             )
         }
-        else if(user === 'true'){
+        else if (user === 'true') {
             return (
                 <>
                     <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to='/userHome'>Home</Link>
                     </li>
                     <li className="nav-item">
+                        <Link className="nav-link active" aria-current="page" to='/userHome'>Welcome, {username}</Link>
+                    </li>
+                    <li className="nav-item">
                         <Link className="nav-link active" to='/showflight'  > Show Flights </Link>
                     </li>
+                    {/* <li className="nav-item">
+                        <Link className="nav-link active" to='/bookingHistory'  > Booking History </Link>
+
+                    </li> */}
+
+                    <button className=" btn-dark" type="button" onClick={showBookingHistory}
+                        id="bookingHistory" style={{ textAlign: 'center', borderBlockStyle: 'none' }} >Your Bookings</button>
+
                     <li className="nav-item">
                         <Link className="nav-link active" to='/logout'  >Logout </Link>
                     </li>
-                    
+
                 </>
             )
         }
         else {
             return (
-            <>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/loginUser' >Login </Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/register' >Signup</Link>
-                </li>
-            </>
+                <>
+                    <li className="nav-item">
+                        <Link className="nav-link" to='/loginUser' >Login </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to='/register' >Signup</Link>
+                    </li>
+                </>
             )
         }
     }

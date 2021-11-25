@@ -5,12 +5,11 @@ import {GlobalState} from './useReducer';
 
 
 
- const GlobalStateProvider = ({children}) => {
+const GlobalStateProvider = ({children}) => {
     return (
         <Context.Provider value={GlobalState()}> {children}</Context.Provider>
     )
 }
-
 export default GlobalStateProvider;
 
 

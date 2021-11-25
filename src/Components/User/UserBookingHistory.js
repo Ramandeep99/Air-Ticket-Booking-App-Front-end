@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const BookingHistory = ({ props }) => {
+const BookingHistory = () => {
 
     const location = useLocation();
+
+    console.log(location.state.data)
 
     const [upcomingFlights, setupcomingFlights] = useState([]);
 

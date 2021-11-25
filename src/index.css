@@ -1,0 +1,9 @@
+
+#alerts{
+    position: absolute;
+    top: 12%;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 10px;
+}

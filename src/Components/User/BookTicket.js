@@ -13,7 +13,7 @@ const BookTicket = () => {
     const [state, setState] = useState([])
 
     // for passing data to history page 
-    const [bookingdata , setbookingdata] = useState({});
+    const [bookingdata, setbookingdata] = useState({});
 
     // console.log(globalState)
 
@@ -25,12 +25,12 @@ const BookTicket = () => {
         history.push('/userHome')
     }
 
-    const makePayment = async () =>{
+    const makePayment = async () => {
 
         const paymentButton = document.getElementById('paymentbtn')
-        const bookingHistoryButton = document.getElementById('bookingHistory')
+        const bookingHistoryButton2 = document.getElementById('bookingHistory2')
 
-        const res = await fetch(`/user/payment/${globalState}` , {
+        const res = await fetch(`/user/payment/${globalState}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -40,31 +40,27 @@ const BookTicket = () => {
         const data = await res.json();
 
         if (res.status === 400) {
-            window.alert('Sorry, Your Request not processed. Please try again.');
+            window.alert('Sorry, Your Request not processed. Please try again');
         }
         else {
             setbookingdata(data.user._id);
-            // console.log(data.user._id)
+            console.log(data.user._id)
 
             //  make the display of button none once paid
             paymentButton.style.display = 'none'
-            bookingHistoryButton.style.display = 'inline'
-
+            bookingHistoryButton2.style.display = 'inline'
             window.alert('Ticket Booked.')
         }
     }
 
 
-    const showBookingHistory = async () =>{
+    const showBookingHistory = async () => {
 
         history.push({
             pathname: '/bookingHistory',
-            state: { data : bookingdata }
+            state: { data: bookingdata }
         });
- 
     }
-
-
 
 
     const submit = async () => {
@@ -101,7 +97,8 @@ const BookTicket = () => {
                             <th scope="col">FROM</th>
                             <th scope="col">TO</th>
                             <th scope="col">DATE</th>
-                            <th scope="col">TIME</th>
+                            <th scope="col">TAKEOFF TIME</th>
+                            <th scope="col">DURATION</th>
                             <th scope="col">FARE</th>
 
                         </tr>
@@ -113,7 +110,8 @@ const BookTicket = () => {
                                 <td>{flight.From}</td>
                                 <td>{flight.To}</td>
                                 <td>{flight.Date_}</td>
-                                <td>{flight.Time}</td>
+                                <td>{flight.TakeOff_Time}</td>
+                                <td>{flight.Duration}</td>
                                 <td>{flight.Fare}</td>
                             </tr>
                         ))}
@@ -121,12 +119,12 @@ const BookTicket = () => {
                 </table>
 
                 <div className="form-group mt-4 text-center">
-                    <button className="btn btn-primary btn-block" type="submit" onClick={makePayment}
+                    <button className="btn btn-primary btn-block" type="button" onClick={makePayment}
                         id="paymentbtn">Proceed to Pay</button>
-                    <button className="btn btn-primary btn-block ms-4 me-4" type="submit" onClick={back}
+                    <button className="btn btn-primary btn-block ms-4 me-4" type="button" onClick={back}
                         id="submit-btn">Go Back</button>
-                    <button className="btn btn-primary btn-block" type="submit" onClick={showBookingHistory}
-                        id="bookingHistory" style={{display : 'none' , textAlign: 'center'}} >Your Bookings</button>
+                    <button className="btn btn-primary btn-block" type="button" onClick={showBookingHistory}
+                        id="bookingHistory2" style={{ display: 'none', textAlign: 'center' }} >Your Bookings</button>
                 </div>
             </div>
 

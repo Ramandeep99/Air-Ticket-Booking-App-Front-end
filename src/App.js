@@ -9,6 +9,7 @@ import Error from "./Components/Admin/Error";
 import Home from "./Components/Admin/Home";
 import Logout from "./Components/Admin/Logout";
 
+
 import ShowFlight from "./Components/Admin/FlightSchedule/ShowFlight";
 import AddFlight from "./Components/Admin/FlightSchedule/AddFlight";
 import EditFlight from "./Components/Admin/FlightSchedule/EditFlight";
@@ -24,7 +25,7 @@ import UserBookingHistory from './Components/User/UserBookingHistory'
 import Path_StoD from './Components/User/Path_StoD'
 
 // GLOGIN 
-import GLogin from "./Components/GoogleLogin";
+import GLogin from "./Components/User/GoogleLogin";
 
 const App = () => {
 
@@ -62,7 +63,6 @@ const App = () => {
                 <Route exact path='/path' component={Path_StoD} />
                 <Route component={Error} />
             </Switch>
-
         </>
     )
 }

@@ -1,9 +1,10 @@
 
 
 import React, { useState } from 'react';
-import { useHistory , NavLink } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 
 import '../Admin/css/register.css'
+import { Alert } from '../ShowAlert';
 
 const RegisterUser = () => {
 
@@ -36,19 +37,19 @@ const RegisterUser = () => {
         var namePass = true, emailPass = true, passwordPass = true, confirm_passwordPass = true;
         if (Name === '') {
             namePass = false;
-            window.alert('Please Enter Your Name')
+            Alert('Please Enter Your Name' , 'warning')
         }
         if (email === '' && namePass) {
             emailPass = false;
-            window.alert('Please Enter Emailid')
+            Alert('Please Enter Emailid' , 'warning')
         }
         if (password === '' && email && namePass) {
             passwordPass = false;
-            window.alert('Please Enter Password')
+            Alert('Please Enter Password' , 'warning')
         }
         if (confirm_password === '' && password && email && namePass) {
             confirm_passwordPass = false;
-            window.alert('Please Re-Enter Password')
+            Alert('Please Re-Enter Password' , 'warning')
         }
 
         if (namePass && emailPass && passwordPass && confirm_passwordPass) {
@@ -86,7 +87,7 @@ const RegisterUser = () => {
 
     return (
         <>
-            
+
             <div id='register'>
                 <div className="container text-center main-div">
                     <div className="row justify-content-center">
@@ -96,7 +97,7 @@ const RegisterUser = () => {
                             <form className="form-div" id="form">
 
                                 <h2 className="mb-3">REGISTER</h2>
-                                <div className="form-group">
+                                <div className="form-group mb-3">
                                     <input required type="text" id="name" className="form-control"
                                         placeholder="Name" onChange={handleChange}
                                         name="Name"
@@ -104,7 +105,7 @@ const RegisterUser = () => {
                                 </div>
                                 <div className="form-name"></div>
 
-                                <div className="form-group">
+                                <div className="form-group mb-3">
                                     <input required type="text" name="email" id="email"
                                         placeholder="Email Id" onChange={handleChange}
                                         className='form-control'
@@ -112,7 +113,7 @@ const RegisterUser = () => {
                                 </div>
                                 <div className="form-email"></div>
 
-                                <div className="form-group">
+                                <div className="form-group mb-3">
                                     <input required name="password" id="password" className="form-control"
                                         placeholder="Password" onChange={handleChange}
                                         type="text"
@@ -120,7 +121,7 @@ const RegisterUser = () => {
                                 </div>
                                 <div className="form-password"></div>
 
-                                <div className="form-group">
+                                <div className="form-group mb-3">
                                     <input required id="confirm-password" onChange={handleChange}
                                         className='form-control'
                                         name="confirm_password"
@@ -130,7 +131,7 @@ const RegisterUser = () => {
                                 </div>
                                 <div className="form-cpassword"></div>
 
-                                <div className="form-group mt-4">
+                                <div className="form-group mt-4 ">
                                     <button className="btn btn-primary btn-block" type="submit" onClick={submit}
                                         id="submit-btn">Submit</button>
                                 </div>
@@ -147,7 +148,7 @@ const RegisterUser = () => {
 
         </>
     )
-}   
+}
 
 
 export default RegisterUser;

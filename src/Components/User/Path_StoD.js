@@ -146,11 +146,12 @@ const Path = () => {
                         <div className="container text-center main-div mt-4">
                             <h1> Your Trip Map </h1>
 
-                            <h3 className='mt-4'> Time From Source To Destination: {path.distance} mins. </h3>
+                            <h3 className='mt-5'> Time From Source To Destination: {path.distance} mins. </h3>
 
-                            {path.path.map((city, index) => (
-                                <h1>{city}</h1>
+                            <h3  className="mt-4"> Path :  {path.path.map((city, index) => (
+                                <span> {city},  </span>
                             ))}
+                            </h3>
                         </div>
 
                     </>

@@ -3,11 +3,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 import './css/register.css'
 import { Context } from '../../reducer/context';
+import { UserContext } from '../../UserGlobalState/UserContext';
 
 const Logout = () => {
 
     // const {globalDispatch} = useContext(Context);
     const { globalState, globalSetState } = useContext(Context);
+    const { globalState2, globalSetState2 } = useContext(UserContext);
 
     const history = useHistory();
 
@@ -34,7 +36,9 @@ const Logout = () => {
                 const data = await res.json()
 
                 localStorage.setItem('login', false);
+                localStorage.setItem('loginId', null);
                 globalSetState(localStorage.getItem('login'))
+                globalSetState2(localStorage.getItem('loginId'))
                 console.log("logout")
                 history.push('/loginUser')
             }

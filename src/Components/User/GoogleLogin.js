@@ -1,14 +1,16 @@
-import React , {useContext} from "react";
+import React, { useContext } from "react";
 import GoogleLogin from 'react-google-login'
 import { useHistory } from "react-router";
 
-import { Context } from "../reducer/context";
+import { Context } from "../../reducer/context";
+import { UserContext } from "../../UserGlobalState/UserContext";
 
 const GLogin = () => {
 
     const history = useHistory()
 
     const { globalState, globalSetState } = useContext(Context);
+    const { globalState2, globalSetState2 } = useContext(UserContext);
 
     const responseSuccessGoogle = async (response) => {
         console.log(response)
@@ -22,7 +24,7 @@ const GLogin = () => {
             })
         })
 
-        const data = await res.json;
+        const data = await res.json();
 
         console.log(data)
 
@@ -30,8 +32,15 @@ const GLogin = () => {
             window.alert('Login Failed!');
         }
         else {
+            // localStorage.setItem('login', true);
+            // globalSetState(localStorage.getItem('login'));
+            // window.alert('Successful Logged In');
+            // history.push("/userHome");
+
             localStorage.setItem('login', true);
+            localStorage.setItem('loginId', data.userId);
             globalSetState(localStorage.getItem('login'));
+            globalSetState2(localStorage.getItem('loginId'));
             window.alert('Successful Logged In');
             history.push("/userHome");
         }
