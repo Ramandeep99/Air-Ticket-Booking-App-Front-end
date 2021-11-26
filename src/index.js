@@ -13,15 +13,16 @@ import GlobalStateProvider2 from "./UserGlobalState/UserGlobalStateProvider";
 import FlightGlobalStateProvider from "./GlobalFlightState/FlightGlobalState";
 
 ReactDOM.render(
-  <GlobalStateProvider2>
-    <GlobalStateProvider>
+
+  <GlobalStateProvider>
+    <GlobalStateProvider2>
       <FlightGlobalStateProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </FlightGlobalStateProvider>
-    </GlobalStateProvider>
-  </GlobalStateProvider2>,
+    </GlobalStateProvider2>
+  </GlobalStateProvider>,
   document.getElementById('root')
 );
 

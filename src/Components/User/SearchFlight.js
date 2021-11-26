@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../Admin/css/register.css'
 import { useHistory, NavLink, Link } from 'react-router-dom';
+import { Alert } from "../ShowAlert";
 
 const SearchFlight = ({ setflights }) => {
 
@@ -36,27 +37,27 @@ const SearchFlight = ({ setflights }) => {
 
         if (From === '') {
             FromPass = false;
-            window.alert('Please Enter Source');
+            Alert('Please Enter Source', 'warning');
         }
         else {
             var FromValReg = /^([A-Z][A-Za-z]{3,})$/;
             // console.log(FromValReg.test(From));
             if ((FromValReg.test(From)) === false) {
                 FromPass = false;
-                window.alert('Please Enter data at From field having  only alphabets followed by Capital letter and length atleast 3')
+                Alert('Please Enter data at "From" field having only alphabets followed by Capital letter, length >= 3', 'danger', 5000)
             }
         }
 
         if (To === '' && FromPass) {
             ToPass = false;
-            window.alert('Please Enter Destination');
+            Alert('Please Enter Destination', 'warning');
         }
         else if (FromPass) {
             var ToValReg = /^([A-Z][A-Za-z]{3,})$/;
             // console.log(ToValReg.test(From));
             if ((ToValReg.test(To)) === false) {
                 ToPass = false;
-                window.alert('Please Enter data at To field having  only alphabets followed by Capital letter and length atleast 3')
+                Alert('Please Enter data at "To" field having only alphabets followed by Capital letter, length >= 3', 'danger')
             }
         }
         // console.log(Date_)
@@ -68,11 +69,11 @@ const SearchFlight = ({ setflights }) => {
             if (Date_ !== '') {
 
                 var currMili = new Date()
-                currMili.setHours(0,0,0,0);
+                currMili.setHours(0, 0, 0, 0);
                 currMili = currMili.getTime();
 
                 var enterdMili = new Date(Date_)
-                enterdMili.setHours(0,0,0,0);
+                enterdMili.setHours(0, 0, 0, 0);
                 enterdMili = enterdMili.getTime()
 
                 var combination = enterdMili - currMili;
@@ -80,7 +81,7 @@ const SearchFlight = ({ setflights }) => {
 
                 if ((combination) < 0) {
                     Date_Pass = false;
-                    alert("Date Time must be in the future");
+                    Alert("Date Time must be in the future", 'danger');
                 }
             }
         }
@@ -105,16 +106,16 @@ const SearchFlight = ({ setflights }) => {
             console.log(res.status);
 
             if (res.status === 400) {
-                window.alert('Invalid Data!');
+                Alert('Invalid Data!', 'info');
             }
             else {
                 if (data.length > 0) {
                     setflights(data)
                     // console.log(data)
-                    window.alert('Successful')
+                    Alert('Successful', "success", 2000)
                 }
                 else {
-                    window.alert('No Flights Scheduled for searched route!')
+                    Alert('No Flights Scheduled for searched route!', 'info')
                 }
 
             }
@@ -143,90 +144,126 @@ const SearchFlight = ({ setflights }) => {
         find()
     }, [])
 
-    const showBookingHistory = async () => {
+    const showBookingHistory = async (e) => {
 
-        var g = new Object;
-        var start = state.From, finish = state.To, flag = 0;
-        console.log(allflights)
+        e.preventDefault();
 
-        allflights.forEach((flight) => {
-            if (flight.From == start) {
-                if (g["start"] == undefined) {
-                    g["start"] = {}
-                }
-                if (flight.To == finish) {
-                    g["start"]["finish"] = Number(flight.Duration)
-                }
-                else {
-                    g["start"][flight.To] = Number(flight.Duration)
-                }
-            }
-            else if (flight.From === finish) {
-                if (g["finish"] == undefined) {
-                    g["finish"] = {}
-                }
-                if (flight.To == start) {
-                    flag = 1
-                    g["finish"]["start"] = Number(flight.Duration)
-                }
-                else {
-                    flag = 1
-                    g["finish"][flight.To] = Number(flight.Duration)
-                }
-            }
-            else if (flight.To === start) {
+        const { From, To, Date_ } = state;
 
-                if (g["finish"] == undefined) {
-                    g["finish"] = {}
-                }
-                if (g[flight.From] == undefined) {
-                    g[flight.From] = {}
-                }
-                if (flight.From === finish) {
-                    flag = 1
-                    g["finish"]["start"] = Number(flight.Duration)
-                }
-                else {
-                    g[flight.From]["start"] = Number(flight.Duration)
-                }
-            }
-            else if (flight.To === finish) {
-                if (g["start"] == undefined) {
-                    g["start"] = {}
-                }
-                if (g[flight.From] == undefined) {
-                    g[flight.From] = {}
-                }
-                if (flight.From == start) {
-                    g["start"]["finish"] = Number(flight.Duration)
-                }
-                else {
-                    g[flight.From]["finish"] = Number(flight.Duration)
-                }
-            }
-            else {
-                if (g[flight.From] == undefined) {
-                    g[flight.From] = {}
-                }
-                g[flight.From][flight.To] = Number(flight.Duration)
-            }
-        })
+        var FromPass = true, ToPass = true, Date_Pass = true;
 
-        if (flag === 0) {
-            g["finish"] = {}
+        if (From === '') {
+            FromPass = false;
+            Alert('Please Enter Source', 'warning');
+        }
+        else {
+            var FromValReg = /^([A-Z][A-Za-z]{3,})$/;
+            // console.log(FromValReg.test(From));
+            if ((FromValReg.test(From)) === false) {
+                FromPass = false;
+                Alert('Please Enter data at "From" field having only alphabets followed by Capital letter, length >= 3', 'danger', 5000)
+            }
         }
 
-        console.log(g);
-
-
-        history.push({
-            pathname: '/path',
-            state: {
-                graph: g,
-                From: state.From,
-                To: state.To
+        if (To === '' && FromPass) {
+            ToPass = false;
+            Alert('Please Enter Destination', 'warning');
+        }
+        else if (FromPass) {
+            var ToValReg = /^([A-Z][A-Za-z]{3,})$/;
+            // console.log(ToValReg.test(From));
+            if ((ToValReg.test(To)) === false) {
+                ToPass = false;
+                Alert('Please Enter data at "To" field having only alphabets followed by Capital letter, length >= 3', 'danger')
             }
-        });
+        }
+
+        if (FromPass && ToPass && Date_Pass) {
+
+            var g = new Object;
+            var start = state.From, finish = state.To, flag = 0;
+
+            console.log(allflights)
+
+            allflights.forEach((flight) => {
+                if (flight.From == start) {
+                    if (g["start"] == undefined) {
+                        g["start"] = {}
+                    }
+                    if (flight.To == finish) {
+                        g["start"]["finish"] = Number(flight.Duration)
+                    }
+                    else {
+                        g["start"][flight.To] = Number(flight.Duration)
+                    }
+                }
+                else if (flight.From === finish) {
+                    if (g["finish"] == undefined) {
+                        g["finish"] = {}
+                    }
+                    if (flight.To == start) {
+                        flag = 1
+                        g["finish"]["start"] = Number(flight.Duration)
+                    }
+                    else {
+                        flag = 1
+                        g["finish"][flight.To] = Number(flight.Duration)
+                    }
+                }
+                else if (flight.To === start) {
+
+                    if (g["finish"] == undefined) {
+                        g["finish"] = {}
+                    }
+                    if (g[flight.From] == undefined) {
+                        g[flight.From] = {}
+                    }
+                    if (flight.From === finish) {
+                        flag = 1
+                        g["finish"]["start"] = Number(flight.Duration)
+                    }
+                    else {
+                        g[flight.From]["start"] = Number(flight.Duration)
+                    }
+                }
+                else if (flight.To === finish) {
+                    if (g["start"] == undefined) {
+                        g["start"] = {}
+                    }
+                    if (g[flight.From] == undefined) {
+                        g[flight.From] = {}
+                    }
+                    if (flight.From == start) {
+                        g["start"]["finish"] = Number(flight.Duration)
+                    }
+                    else {
+                        g[flight.From]["finish"] = Number(flight.Duration)
+                    }
+                }
+                else {
+                    if (g[flight.From] == undefined) {
+                        g[flight.From] = {}
+                    }
+                    g[flight.From][flight.To] = Number(flight.Duration)
+                }
+            })
+
+            if (flag === 0) {
+                g["finish"] = {}
+            }
+
+            console.log(g);
+
+            history.push({
+                pathname: '/path',
+                state: {
+                    graph: g,
+                    From: state.From,
+                    To: state.To
+                }
+            });
+
+        }
 
     }
 

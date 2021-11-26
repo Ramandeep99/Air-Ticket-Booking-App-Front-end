@@ -1,0 +1,42 @@
+/* 
+#register{
+    background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    font-family: 'Numans', sans-serif;
+} */
+
+
+.form-div2 {
+    position: relative;
+    /* margin-top: 15vh; */
+    top:10vh;
+    background: #fff;
+    padding: 20px;
+    /* border-radius: 10px; */
+    box-shadow: 0px 0px 3px 0 rgb(192, 185, 185);
+    background-color: rgb(255, 255, 255);
+}
+
+.main-div2 {
+  
+    /* width: 100%;
+    height: 92vh; */
+    background-image : url('../Pics/pexels-pascal-renet-1089303.jpg');
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    
+}
+
+.userhome{
+    /* width: 100%; */
+    height: 89vh;
+    background-image : url('../Pics/pexels-sanaan-mazhar-3075993.jpg');
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

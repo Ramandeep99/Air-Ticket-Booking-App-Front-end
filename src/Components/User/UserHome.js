@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import SearchFlight from "./SearchFlight";
 import ShowSearchedFlight from "./ShowSearchedFlight";
 // arvinder singh
+
+import { UserContext } from "../../UserGlobalState/UserContext";
+import Clock1 from "../../Clock1/Clock1";
 
 const Clock = () => {
 
@@ -12,7 +15,7 @@ const Clock = () => {
     const [count, setCount] = useState(datetime);
 
     const IncVal = () => {
-
+ 
         var currentdate = new Date();
         var currentDateTime = currentdate.toLocaleTimeString();
         setCount(currentDateTime);
@@ -22,7 +25,7 @@ const Clock = () => {
 
     return (
         <>
-            <div className='mainDiv'>
+            <div className>
                 <h1> {count} </h1>
             </div>
 
@@ -33,6 +36,8 @@ const Clock = () => {
 
 const Home = () => {
 
+    const { globalState2, globalSetState2 } = useContext(UserContext);
+
     const history = useHistory();
 
     const [flights, setflights] = useState([])
@@ -40,6 +45,7 @@ const Home = () => {
     useEffect(() => {
         console.log('user Home page')
         console.log(flights)
+        globalSetState2(localStorage.getItem('loginId'));
     }, [])
 
     const back = () => {
@@ -75,8 +81,8 @@ const Home = () => {
     return (
         <>
 
-            <div className="container">
-                <div className='text-center mt-3'> <Clock /> </div>
+            <div className="userhome">
+                <div className='text-center'> <Clock1 /> </div>
                 <Display />
             </div>
 

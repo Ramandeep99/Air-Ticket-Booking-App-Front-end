@@ -1,11 +1,12 @@
 
 import React, { useContext, useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
-import '../Admin/css/register.css'
+// import '../Admin/css/register.css'
 import { Alert } from '../ShowAlert';
 import { Context } from '../../reducer/context';
 import { UserContext } from '../../UserGlobalState/UserContext';
 import GLogin from './GoogleLogin';
+import './Css/Auth.css'
 
 const Login = () => {
 
@@ -52,13 +53,11 @@ const Login = () => {
             Alert('Please Enter Password' , 'warning')
         }
 
-
+        console.log(email , password)
         if (emailPass && passwordPass) {
             setState({
                 email: '', password: ''
             });
-
-
 
             const res = await fetch('/user/login', {
                 method: "POST",
@@ -73,8 +72,8 @@ const Login = () => {
 
             const data = await res.json();
 
-            console.log(data.msg);
-            console.log(res.status);
+            // console.log(data.userName);
+            // console.log(res.status);
 
             if (res.status === 400) {
                 Alert('Invalid Login Credentials' , 'warning')
@@ -82,7 +81,7 @@ const Login = () => {
             else if (data.msg === 'ADMIN') {
                 localStorage.setItem('admin', true);
                 globalSetState(localStorage.getItem('admin'));
-                window.alert('Successful Admin Logged In');
+                Alert('Successful Admin Logged In', 'success');
                 history.push("/");
             }
             else {
@@ -90,8 +89,9 @@ const Login = () => {
                 localStorage.setItem('loginId', data.userId);
                 globalSetState(localStorage.getItem('login'));
                 globalSetState2(localStorage.getItem('loginId'));
-                window.alert('Successful Logged In');
-                history.push("/userHome");
+                localStorage.setItem('userName' , data.userName);
+                Alert('Successful Logged In' ,'success');
+                history.push("/mainpage");
             }
 
         }
@@ -100,8 +100,7 @@ const Login = () => {
 
     return (
         <>
-
-            <div id='register'>
+            <div className='auth'>
                 <div className="container text-center main-div">
                     <div className="row justify-content-center">
                         <div className="col-lg-4 col-sm-6 col-md-6">
@@ -132,7 +131,7 @@ const Login = () => {
                                 <span id="passwordError"></span>
 
                                 <div className="form-group mt-4">
-                                    <button className="btn btn-primary btn-block mx-3" type="submit" onClick={submit}
+                                    <button className="btn btn-primary btn-block mx-3" type="button" onClick={submit}
                                         id="submit-btn">Submit</button>
                                     <GLogin />
                                 </div>

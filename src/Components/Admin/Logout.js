@@ -37,6 +37,7 @@ const Logout = () => {
 
                 localStorage.setItem('login', false);
                 localStorage.setItem('loginId', null);
+                localStorage.setItem('userName' ,  null);
                 globalSetState(localStorage.getItem('login'))
                 globalSetState2(localStorage.getItem('loginId'))
                 console.log("logout")

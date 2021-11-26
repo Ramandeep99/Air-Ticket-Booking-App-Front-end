@@ -22,7 +22,7 @@ const BookTicket = () => {
     }, [])
 
     const back = () => {
-        history.push('/userHome')
+        history.push('/showflight')
     }
 
     const makePayment = async () => {

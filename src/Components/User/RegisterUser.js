@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 
-import '../Admin/css/register.css'
+import './Css/Auth.css'
 import { Alert } from '../ShowAlert';
 
 const RegisterUser = () => {
@@ -33,23 +33,27 @@ const RegisterUser = () => {
     const submit = async (e) => {
         e.preventDefault();
 
-        const { Name, email, password, confirm_password } = state;
+        var { Name, email, password, confirm_password } = state;
         var namePass = true, emailPass = true, passwordPass = true, confirm_passwordPass = true;
         if (Name === '') {
             namePass = false;
-            Alert('Please Enter Your Name' , 'warning')
+            Alert('Please Enter Your Name', 'warning')
+        } else {
+            var letter = Name.charAt(0).toUpperCase();
+            letter += Name.slice(1, Name.length);
+            Name = letter;
         }
         if (email === '' && namePass) {
             emailPass = false;
-            Alert('Please Enter Emailid' , 'warning')
+            Alert('Please Enter Emailid', 'warning')
         }
         if (password === '' && email && namePass) {
             passwordPass = false;
-            Alert('Please Enter Password' , 'warning')
+            Alert('Please Enter Password', 'warning')
         }
         if (confirm_password === '' && password && email && namePass) {
             confirm_passwordPass = false;
-            Alert('Please Re-Enter Password' , 'warning')
+            Alert('Please Re-Enter Password', 'warning')
         }
 
         if (namePass && emailPass && passwordPass && confirm_passwordPass) {
@@ -75,7 +79,8 @@ const RegisterUser = () => {
             console.log(res.status)
 
             if (res.status === 404) {
-                window.alert('Invalid Data!')
+                // if(data.error == )
+                window.alert(data.message)
             }
             else {
                 window.alert('Successful Registeration!')
@@ -88,7 +93,7 @@ const RegisterUser = () => {
     return (
         <>
 
-            <div id='register'>
+            <div className='auth'>
                 <div className="container text-center main-div">
                     <div className="row justify-content-center">
                         <div className="col-lg-4 col-sm-6 col-md-6">

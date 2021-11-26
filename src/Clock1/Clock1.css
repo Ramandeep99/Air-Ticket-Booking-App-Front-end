@@ -1,0 +1,24 @@
+#mydiv {
+  position: absolute;
+  top:11%;
+  left:2%;
+  z-index: 90;
+  background-color: #f1f1f1;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  width: auto;
+  /* border-radius: 10px; */
+  /* border-top-left-radius: 20px;
+  border-top-right-radius: 20px; */
+}
+
+#mydivheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 100;
+  background-color: #03070a;
+  color: #fff;
+  width: 250px;
+  /* border-top-left-radius: 10px;
+  border-top-right-radius: 10px; */
+}

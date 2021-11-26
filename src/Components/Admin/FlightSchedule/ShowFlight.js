@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import './css/FlightSchedule.css'
+// import './css/FlightSchedule.css'
 import { Link, useHistory } from "react-router-dom";
 import Like from './Icons/Edit.js'
 import Delete from "./Icons/Delete";
+import './css/ShowFlight.css'
+import FlightIcon from "./Icons/FlightIcon.js";
+import PaymentIcon from "./Icons/PaymentIcon.js";
+
 
 // from user 
 import { Context } from "../../../GlobalFlightState/FlightContext";
@@ -70,6 +74,7 @@ const ShowFlight = ({ setselectFlight }) => {
     }
 
     const admin = localStorage.getItem('admin')
+
     if (admin === 'true') {
         return (
             <>
@@ -124,10 +129,64 @@ const ShowFlight = ({ setselectFlight }) => {
     else {
         return (
             <>
-
                 <div className="container">
-                    {/* <div className='text-center m-5'> <Clock /> </div> */}
-                    <h2 className='text-center m-5'> Flight Schedule </h2>
+                    <h2 className='text-center m-4 mb-5'> FLIGHT SCHEDULE </h2>
+                    <div class="row">
+                        {state.map((flight, index) => (
+                            <div class="col-sm-6 mb-4">
+                                <div class="card">
+                                    <div class="p-4 bg-top">
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <div class="d-flex flex-column justify-content-between align-items-center">
+                                                <h1>IND</h1><span class="mb-2">{flight.From}</span><span>{flight.Date_}</span><span>{flight.TakeOff_Time}</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center "> <span>{flight.FlightNo}</span>  <FlightIcon size={70} /> <span>{flight.Duration} mins</span>  </div>
+                                            <div class="d-flex flex-column justify-content-between align-items-center">
+                                                <h1>CDG</h1><span class="mb-2">{flight.To}</span><span>{flight.Date_}</span><span>{flight.TakeOff_Time}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-center bg-btm">
+                                        <div class="d-flex flex-row align-items-center mx-3">
+                                            <h3 className='mx-5 text-light'>{flight.Fare}</h3>
+                                            <div className=' d-flex flex-row '>
+                                                <Link className=" btn btn-secondary mx-5 btn-sm" to='/bookticket'><h5> PAY </h5></Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            /* <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="p-4 bg-top">
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <div class="d-flex flex-column justify-content-between align-items-center">
+                                                <h1>IND</h1><span class="mb-2">Indianapolis</span><span>Thu, Aug 17</span><span>07:00 PM</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center"> <FlightIcon size={70} /> </div>
+                                            <div class="d-flex flex-column justify-content-between align-items-center">
+                                                <h1>CDG</h1><span class="mb-2">Paris</span><span>Thu, Aug 17</span><span>03:00 AM</span>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-center bg-btm">
+                                        <div class="d-flex flex-row align-items-center mx-3">
+                                            <h3 className='mx-5 text-light'>$500</h3>
+                                            <div className=' d-flex flex-row '>
+                                                <Link className=" btn btn-dark mx-5 btn-sm" to='/bookticket'> <PaymentIcon /> </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> */
+                        ))}
+                    </div>
+                </div>
+
+                {/* <div className="container">
+                   
                     <table class="table">
                         <thead>
                             <tr>
@@ -164,7 +223,7 @@ const ShowFlight = ({ setselectFlight }) => {
                     </table>
 
                 </div>
-
+ */}
 
             </>
         )

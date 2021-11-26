@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import { UserContext } from "../../UserGlobalState/UserContext";
 import { useHistory } from "react-router";
-
+import { Context } from "../../reducer/context";
+import '../Admin/css/register.css'
 
 const Navbar = () => {
 
@@ -12,11 +13,7 @@ const Navbar = () => {
 
     const { globalState2, globalSetState2 } = useContext(UserContext);
 
-    console.log(globalState2)
-
     const [bookingdata, setbookingdata] = useState({});
-
-    const [username, setuserName] = useState('')
 
     const admin = localStorage.getItem('admin')
 
@@ -24,24 +21,15 @@ const Navbar = () => {
 
     const Id = localStorage.getItem('loginId')
 
-    console.log(Id)
-
-    const userName = async () => {
-        const res = await fetch(`/user/userName/${Id}`)
-
-        const data = await res.json()
-        var name = data.user
-        var letter = name.charAt(0).toUpperCase();
-        letter += name.slice(1, name.length);
-        setuserName(letter)
-        console.log(letter)
+    const reloading = () => {
+        console.log('reloading...')
+        console.log(admin)
     }
 
     useEffect(() => {
-        userName()
-        // console.log(username)
+        if (admin === 'true') {
+        }
     }, [])
-
 
     const showBookingHistory = async () => {
         setbookingdata(globalState2)
@@ -49,9 +37,7 @@ const Navbar = () => {
             pathname: '/bookingHistory',
             state: { data: bookingdata }
         });
-
     }
-
 
     const Menu = () => {
         if (admin === "true") {
@@ -72,13 +58,14 @@ const Navbar = () => {
             )
         }
         else if (user === 'true') {
+
             return (
                 <>
                     <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to='/userHome'>Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to='/userHome'>Welcome, {username}</Link>
+                        <Link className="nav-link active" aria-current="page" to='/userProfile'>Profile</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link active" to='/showflight'  > Show Flights </Link>
@@ -102,34 +89,76 @@ const Navbar = () => {
             return (
                 <>
                     <li className="nav-item">
-                        <Link className="nav-link" to='/loginUser' >Login </Link>
+                        <Link className="nav-link text-light" to='/loginUser' >Login </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to='/register' >Signup</Link>
+                        <Link className="nav-link text-light" to='/register' >Signup</Link>
                     </li>
                 </>
             )
         }
     }
 
-    return (
-        <>
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                <div className="container-fluid">
-                    <Link className="navbar-brand ms-2" to='#' >LOGO</Link>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mb-2 mb-lg-0 ms-auto me-4">
-                            <Menu />
-                        </ul>
+    if (admin === "true") {
+        return (
+            <>
+                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <div className="container-fluid">
+                        <Link className="navbar-brand ms-2" to='#' id="logo">GO AIR</Link>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul className="navbar-nav mb-2 mb-lg-0 ms-auto me-4">
+                                <Menu />
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
 
-        </>
-    )
+            </>
+        )
+    }
+    else if (user === 'true') {
+        return (
+            <>
+                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <div className="container-fluid">
+                        <Link className="navbar-brand ms-2" to='#' id="logo" >GO AIR</Link>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul className="navbar-nav mb-2 mb-lg-0 ms-auto me-4">
+                                <Menu />
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+            </>
+        )
+    }
+    else {
+        return (
+            <>
+                <nav className="navbar navbar-expand-md bg-secondary navbar-dark" id='nav'>
+                    <div className="container-fluid">
+                        <Link className="navbar-brand ms-2" to='#' id="logo" >GO AIR</Link>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul className="navbar-nav mb-2 mb-lg-0 ms-auto me-4">
+                                <Menu />
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+            </>
+        )
+    }
 }
 
 export default Navbar;

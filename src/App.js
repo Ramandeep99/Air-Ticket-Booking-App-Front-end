@@ -23,6 +23,8 @@ import RegisterUser from './Components/User/RegisterUser'
 import BookTicket from "./Components/User/BookTicket";
 import UserBookingHistory from './Components/User/UserBookingHistory'
 import Path_StoD from './Components/User/Path_StoD'
+import UserProfile from "./Components/User/UserProfile";
+import MainPage from "./Components/User/MainPage";
 
 // GLOGIN 
 import GLogin from "./Components/User/GoogleLogin";
@@ -56,11 +58,13 @@ const App = () => {
 
                 {/* user */}
                 {/* <Route exact path='/registerUser' component={RegisterUser} /> */}
+                <Route exact path='/mainpage' component={MainPage} />
                 <Route exact path='/loginUser' component={LoginUser} />
                 <Route exact path='/userHome' component={userHome} />
                 <Route exact path='/bookticket' component={BookTicket} /> 
                 <Route exact path='/bookingHistory' component={UserBookingHistory} />
                 <Route exact path='/path' component={Path_StoD} />
+                <Route exact path='/userProfile' component={UserProfile} />
                 <Route component={Error} />
             </Switch>
         </>
@@ -95,29 +99,29 @@ export default App;
 
 
 
-    // for making routing different at login and logout time
-    // const status = localStorage.getItem('login')
-    // // console.log(status)
-    // if (status === "true") {
-    //     return (
+//     for making routing different at login and logout time
+//     const status = localStorage.getItem('login')
+//     // console.log(status)
+//     if (status === "true") {
+//         return (
 
-    //         <Switch>
-    //             <Route exact path='/' component={Home} />
-    //             <Route exact path='/logout' component={Logout} />
-    //             <Route exact path='/showflight' component={ShowFlight} />
-    //             <Route exact path='/addflight' component={AddFlight} />
-    //             <Route component={Error} />
-    //         </Switch>
-    //     )
-    // }
-    // else {
-    //     return (
+//             <Switch>
+//                 <Route exact path='/' component={Home} />
+//                 <Route exact path='/logout' component={Logout} />
+//                 <Route exact path='/showflight' component={ShowFlight} />
+//                 <Route exact path='/addflight' component={AddFlight} />
+//                 <Route component={Error} />
+//             </Switch>
+//         )
+//     }
+//     else {
+//         return (
 
-    //         <Switch>
-    //             <Route exact path='/register' component={Register} />
-    //             <Route exact path='/login' component={Login} />
-    //             <Route component={Error} />
-    //         </Switch>
-    //     )
-    // }
+//             <Switch>
+//                 <Route exact path='/register' component={Register} />
+//                 <Route exact path='/login' component={Login} />
+//                 <Route component={Error} />
+//             </Switch>
+//         )
+//     }
 // }
